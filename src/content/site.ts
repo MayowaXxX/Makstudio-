@@ -127,7 +127,7 @@ export const site = {
       // show those chapters on the project page.
       {
         slug: "pharaohs-of-lagos",
-        title: "Pharaohs of Lagos",
+        title: "Music Visualizer",
         client: "Short film",
         category: "creative-direction",
         year: 2026,
@@ -142,9 +142,9 @@ export const site = {
       },
       {
         slug: "ikoyi",
-        title: "Ikoyi",
-        client: "Short film",
-        category: "creative-direction",
+        title: "Unusual Ad",
+        client: "AI ad",
+        category: "ads",
         year: 2026,
         tools: [],
         thumbnail: "/media/work/ikoyi.jpg",
@@ -157,9 +157,9 @@ export const site = {
       },
       {
         slug: "homegrown",
-        title: "Homegrown",
-        client: "Short film",
-        category: "animation",
+        title: "Unusual Ad",
+        client: "AI ad",
+        category: "ads",
         year: 2026,
         tools: [],
         thumbnail: "/media/work/homegrown.jpg",
@@ -172,7 +172,7 @@ export const site = {
       },
       {
         slug: "matchday",
-        title: "Matchday",
+        title: "Unusual Ad",
         client: "Sports betting spot",
         category: "ads",
         year: 2026,
@@ -187,7 +187,7 @@ export const site = {
       },
       {
         slug: "pawsfirst",
-        title: "PawsFirst",
+        title: "UGC Style",
         client: "UGC product ad",
         category: "ads",
         year: 2026,
