@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { categoryLabel, type Project } from "@/content/site";
 import { useFinePointer, useReducedMotionPref } from "@/lib/hooks";
 import { cn, pad2 } from "@/lib/utils";
@@ -19,15 +19,17 @@ export function ProjectCard({ project, index, aspect }: { project: Project; inde
 
   const start = () => {
     setHover(true);
-    if (!canPreview) return;
-    setLoadVideo(true);
-    // play() after src is attached on the next frame
-    requestAnimationFrame(() => videoRef.current?.play().catch(() => {}));
+    if (canPreview) setLoadVideo(true);
   };
-  const stop = () => {
-    setHover(false);
-    videoRef.current?.pause();
-  };
+  const stop = () => setHover(false);
+
+  // Play/pause once the <video> is actually mounted (it's only rendered after the first hover)
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    if (hover) v.play().catch(() => {});
+    else v.pause();
+  }, [hover, loadVideo]);
 
   return (
     <motion.article
@@ -55,6 +57,7 @@ export function ProjectCard({ project, index, aspect }: { project: Project; inde
               alt={`${project.title} — ${project.summary}`}
               fill
               sizes="(min-width: 768px) 46vw, 100vw"
+              style={{ objectPosition: project.aspect === "9:16" ? "50% 30%" : "50% 50%" }}
               className="object-cover transition-transform duration-[1.6s] ease-luxe group-hover:scale-[1.06]"
             />
             {loadVideo && (
@@ -92,13 +95,15 @@ export function ProjectCard({ project, index, aspect }: { project: Project; inde
           </div>
           <span className="shrink-0 pt-1 font-display text-sm tracking-[0.15em] text-gold/80">{project.year}</span>
         </div>
-        <ul className="mt-4 flex flex-wrap gap-2" aria-label="Tools used">
-          {project.tools.map((t) => (
-            <li key={t} className="rounded-full border border-line px-3 py-1 text-[0.7rem] tracking-wide text-champagne/75">
-              {t}
-            </li>
-          ))}
-        </ul>
+        {project.tools.length > 0 && (
+          <ul className="mt-4 flex flex-wrap gap-2" aria-label="Tools used">
+            {project.tools.map((t) => (
+              <li key={t} className="rounded-full border border-line px-3 py-1 text-[0.7rem] tracking-wide text-champagne/75">
+                {t}
+              </li>
+            ))}
+          </ul>
+        )}
       </Link>
     </motion.article>
   );

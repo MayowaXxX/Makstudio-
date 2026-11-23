@@ -23,7 +23,9 @@ export function Work() {
   );
   const filters: { id: Filter; label: string; count: number }[] = [
     { id: "all", label: "All", count: projects.length },
-    ...categories.map((c) => ({ id: c.id as Filter, label: c.label, count: projects.filter((p) => p.category === c.id).length })),
+    ...categories
+      .map((c) => ({ id: c.id as Filter, label: c.label, count: projects.filter((p) => p.category === c.id).length }))
+      .filter((c) => c.count > 0), // hide categories with no projects yet
   ];
 
   const columns = twoCol
