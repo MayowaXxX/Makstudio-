@@ -42,7 +42,7 @@ export function Contact() {
       form.reset();
       setStatus({ state: "success", message: "Thank you. Your message is in. I'll reply within two working days." });
     } catch {
-      setStatus({ state: "error", message: `Network error. Please email ${site.email} directly.` });
+      setStatus({ state: "error", message: `Network error. Please email ${site.email} or WhatsApp ${site.whatsapp.display}.` });
     }
   }
 
@@ -71,6 +71,18 @@ export function Contact() {
             <p className="eyebrow mt-12">Email</p>
             <a href={`mailto:${site.email}`} className="mt-3 inline-block break-all font-serif text-[clamp(1.6rem,2.6vw,2.4rem)] italic text-gold-light transition-colors hover:text-gold">
               {site.email}
+            </a>
+            <p className="eyebrow mt-10">WhatsApp</p>
+            <a
+              href={`https://wa.me/${site.whatsapp.number}`}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="mt-3 inline-flex items-center gap-3 font-serif text-[clamp(1.4rem,2.2vw,2rem)] italic text-gold-light transition-colors hover:text-gold"
+            >
+              <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0" fill="currentColor" aria-hidden>
+                <path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 2.9 2.9 0 0 0-.9 2.2 5.1 5.1 0 0 0 1 2.7 11.6 11.6 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.5-.2Z" />
+              </svg>
+              {site.whatsapp.display}
             </a>
             <p className="eyebrow mt-12">Elsewhere</p>
             <ul className="mt-4 border-t border-line">

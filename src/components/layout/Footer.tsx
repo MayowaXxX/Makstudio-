@@ -29,6 +29,14 @@ export function Footer() {
               {site.email}
               <span className="block h-px origin-left scale-x-0 bg-gold transition-transform duration-700 ease-luxe group-hover:scale-x-100" />
             </a>
+            <a
+              href={`https://wa.me/${site.whatsapp.number}`}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="mt-4 flex items-center gap-2 text-champagne/80 transition-colors hover:text-gold-light"
+            >
+              WhatsApp {site.whatsapp.display}
+            </a>
             <p className="mt-4 text-sm text-secondary">{site.availability}</p>
           </div>
           <nav aria-label="Footer" className="md:col-span-3">
