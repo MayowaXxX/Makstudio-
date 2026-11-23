@@ -176,6 +176,14 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
             <a href={`mailto:${site.email}`} className="block font-serif text-2xl italic text-gold-light">
               {site.email}
             </a>
+            <a
+              href={`https://wa.me/${site.whatsapp.number}`}
+              target="_blank"
+              rel="noreferrer noopener"
+              className="mt-2 block font-display text-[0.7rem] uppercase tracking-[0.25em] text-gold-light"
+            >
+              WhatsApp · {site.whatsapp.display}
+            </a>
             <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-3">
               {site.socials.map((s) => (
                 <li key={s.label}>

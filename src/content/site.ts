@@ -61,7 +61,9 @@ export const site = {
     "Runway",
     "Midjourney",
   ],
-  email: "hello@yourdomain.com", // TODO: your real inbox
+  email: "nemrack79@gmail.com",
+  // WhatsApp: `number` is international format without "+" (used for the wa.me chat link)
+  whatsapp: { display: "+234 902 806 5984", number: "2349028065984" },
   availability: "Booking commissions for Q1 2027",
   location: "Working worldwide",
   launchYear: 2026,
