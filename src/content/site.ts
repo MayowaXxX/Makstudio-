@@ -281,7 +281,7 @@ export const site = {
     portrait: "/media/portrait.jpg",
     portraitAlt: "Portrait of MAK, AI creative director", // TODO: describe your real photo
     bio: [
-      "I'm MAK, a creative director and animator working at the edge where cinema meets generative AI. I started in motion design and music videos, and when the new tools arrived I treated them the way a cinematographer treats a new lens: something to master, not a shortcut.",
+      "I'm Mayowa, a creative director and animator working at the edge where cinema meets generative AI. I started in motion design and music videos, and when the new tools arrived I treated them the way a cinematographer treats a new lens: something to master, not a shortcut.",
       "Today I lead MAK Studio, a small, senior practice making visualizers for artists, campaigns for brands and films that wouldn't have been possible two years ago. Taste first, tools second.",
     ],
     tools: [
