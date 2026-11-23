@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: PageProps<"/work/[slug]">): P
       title: `${project.title} — ${site.studio}`,
       description: project.summary,
       url: `/work/${project.slug}`,
-      images: [{ url: project.thumbnail, width: 1600, height: 900, alt: project.title }],
+      images: [{ url: project.thumbnail, alt: project.title }],
     },
   };
 }
@@ -65,13 +65,14 @@ async function ProjectContent({ params }: { params: PageProps<"/work/[slug]">["p
     { label: "Client", value: project.client },
     { label: "Discipline", value: categoryLabel(project.category) },
     { label: "Year", value: String(project.year) },
-    { label: "Tools", value: project.tools.join(", ") },
+    ...(project.tools.length ? [{ label: "Tools", value: project.tools.join(", ") }] : [{ label: "Studio", value: site.studio }]),
   ];
 
+  // Chapters render only when their content exists in site.ts
   const chapters = [
-    { title: "The brief", body: <p>{project.brief}</p> },
-    { title: "The concept", body: <p>{project.concept}</p> },
-    {
+    project.brief && { title: "The brief", body: <p>{project.brief}</p> },
+    project.concept && { title: "The concept", body: <p>{project.concept}</p> },
+    project.process?.length && {
       title: "The process",
       body: (
         <ol className="space-y-4">
@@ -84,7 +85,7 @@ async function ProjectContent({ params }: { params: PageProps<"/work/[slug]">["p
         </ol>
       ),
     },
-  ];
+  ].filter(Boolean) as { title: string; body: React.ReactNode }[];
 
   return (
     <article className="relative overflow-hidden">
@@ -113,7 +114,7 @@ async function ProjectContent({ params }: { params: PageProps<"/work/[slug]">["p
 
       <div className="container-luxe">
         <Reveal>
-          <ProjectVideo src={project.video} poster={project.thumbnail} title={project.title} />
+          <ProjectVideo src={project.video} poster={project.thumbnail} title={project.title} vertical={project.aspect === "9:16"} />
         </Reveal>
 
         <dl className="mt-px grid grid-cols-2 gap-px border-x border-b border-line bg-line md:grid-cols-4">

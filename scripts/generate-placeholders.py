@@ -438,8 +438,9 @@ if __name__ == "__main__":
         for name in only:
             globals()[name]()
         raise SystemExit
-    make_work_clips()
-    make_reel()
+    # make_work_clips() and make_reel() are skipped by default: /public/media now
+    # holds MAK's real work and showreel, which they would overwrite. Run them
+    # explicitly (e.g. `python3 scripts/generate-placeholders.py make_reel`) only on purpose.
     make_portrait()
     make_press_kit()
     make_track()

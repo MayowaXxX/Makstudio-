@@ -20,6 +20,7 @@ export type Project = {
   client: string;
   category: ServiceId;
   year: number;
+  /** Tools used (shown as pills). Leave empty to hide. */
   tools: string[];
   /** Poster frame / card thumbnail (16:9 recommended, ≥1600px wide). */
   thumbnail: string;
@@ -27,10 +28,13 @@ export type Project = {
   preview: string;
   /** Full-length video shown on the project page. */
   video: string;
+  /** Video orientation. Defaults to "16:9"; use "9:16" for vertical work. */
+  aspect?: "16:9" | "9:16";
   summary: string;
-  brief: string;
-  concept: string;
-  process: string[];
+  /** Optional chapters on the project page — omit any you don't need. */
+  brief?: string;
+  concept?: string;
+  process?: string[];
   credits: { role: string; name: string }[];
 };
 
@@ -76,12 +80,11 @@ export const site = {
   hero: {
     eyebrow: "MAK Studio · AI-native creative practice",
     headline: "Directing the *Future* of Visual Storytelling",
-    // TODO: replace with your real showreel. Keep the background loop short and
-    // light (≤10MB, 1080p, no audio); the full reel can be longer.
-    backgroundVideo: "/media/reel.mp4",
-    poster: "/media/reel-poster.jpg",
+    // Background loop: short and light (≤10MB, no audio). Cut from your projects.
+    backgroundVideo: "/media/hero-loop.mp4",
+    poster: "/media/hero-poster.jpg",
     reel: {
-      src: "/media/reel.mp4", // TODO: full reel (with sound)
+      src: "/media/reel.mp4", // Showreel with sound, cut from your projects
       poster: "/media/reel-poster.jpg",
       title: "MAK Studio Showreel 2026",
     },
@@ -108,7 +111,7 @@ export const site = {
   work: {
     heading: "Selected *Work*",
     intro:
-      "A cut of recent commissions — brand films, animated worlds, visualizers for artists and campaigns built with a generative pipeline and a director's eye.",
+      "A cut of recent work: cinematic AI short films, animated worlds and ad campaigns, built with a generative pipeline and a director's eye.",
     categories: [
       { id: "creative-direction", label: "Creative Direction" },
       { id: "animation", label: "Animation" },
@@ -117,196 +120,84 @@ export const site = {
     ] as { id: ServiceId; label: string }[],
     // TODO: replace these placeholder projects with your real work.
     projects: [
+      // TODO: confirm titles, years, credits and the tools you used — they were
+      // written from what's visible in the videos. Add `brief` / `process` to
+      // show those chapters on the project page.
       {
-        slug: "aurum-requiem",
-        title: "Aurum Requiem",
-        client: "Séra — Nocturne Records",
-        category: "music-visualizers",
+        slug: "pharaohs-of-lagos",
+        title: "Pharaohs of Lagos",
+        client: "Short film",
+        category: "creative-direction",
         year: 2026,
-        tools: ["TouchDesigner", "Runway", "After Effects"],
-        thumbnail: "/media/work/rings.jpg",
-        preview: "/media/work/rings.mp4",
-        video: "/media/work/rings.mp4",
-        summary: "An audio-reactive visual album where every kick drum ripples through rings of molten gold.",
-        brief:
-          "Séra needed a visual identity for a six-track album that could live on streaming canvases, a YouTube premiere and the LED wall of a live tour — from one coherent system.",
+        tools: [],
+        thumbnail: "/media/work/pharaohs-of-lagos.jpg",
+        preview: "/media/work/pharaohs-of-lagos-preview.mp4",
+        video: "/media/work/pharaohs-of-lagos.mp4",
+        summary: "Ancient Egypt reimagined through a West African lens: pharaohs, pyramid builders and a Lagos-to-Accra ride in one sun-baked world.",
         concept:
-          "Sound as a stone dropped into liquid gold. Each track is a pool; the stems decide the waves. Quiet passages hold still like lacquer, drops shatter the surface.",
-        process: [
-          "Split the masters into stems and mapped each to a visual parameter in TouchDesigner.",
-          "Generated 40+ texture plates with Runway and Midjourney, graded to a gold-on-velvet palette.",
-          "Built a real-time rig that renders 4K masters and 9:16 canvas loops from the same scene.",
-          "Finished titles and lyric moments in After Effects.",
-        ],
-        credits: [
-          { role: "Creative Direction & Visuals", name: "MAK" },
-          { role: "Artist", name: "Séra" },
-          { role: "Label", name: "Nocturne Records" },
-        ],
+          "A collision of eras. Royal processions, pyramid construction sites and modern luxury share a single warm, sepia-graded universe, where queens take selfies and the commute runs from Lagos to Accra.",
+        credits: [{ role: "Direction & AI Production", name: "MAK" }],
       },
       {
-        slug: "velvet-static",
-        title: "Velvet Static",
-        client: "Maison Ombre",
+        slug: "ikoyi",
+        title: "Ikoyi",
+        client: "Short film",
+        category: "creative-direction",
+        year: 2026,
+        tools: [],
+        thumbnail: "/media/work/ikoyi.jpg",
+        preview: "/media/work/ikoyi-preview.mp4",
+        video: "/media/work/ikoyi.mp4",
+        summary: "A monochrome Lagos story, from campaign halls and roadside canteens to convoys at the gates of Ikoyi.",
+        concept:
+          "Shot entirely in black and white, the film moves through Lagos's layers of power and status with bold, poster-style typography punching through the frame.",
+        credits: [{ role: "Direction & AI Production", name: "MAK" }],
+      },
+      {
+        slug: "homegrown",
+        title: "Homegrown",
+        client: "Short film",
+        category: "animation",
+        year: 2026,
+        tools: [],
+        thumbnail: "/media/work/homegrown.jpg",
+        preview: "/media/work/homegrown-preview.mp4",
+        video: "/media/work/homegrown.mp4",
+        summary: "Village superheroes, local footballers, Durbar horsemen and elders: everyday Nigeria re-staged as cinematic AI vignettes.",
+        concept:
+          "Familiar scenes, heightened. Each vignette takes a slice of Nigerian life and gives it the lighting, grain and gravity of a period film, with a wink of humour.",
+        credits: [{ role: "Direction & AI Animation", name: "MAK" }],
+      },
+      {
+        slug: "matchday",
+        title: "Matchday",
+        client: "Sports betting spot",
         category: "ads",
         year: 2026,
-        tools: ["Kling", "Midjourney", "DaVinci Resolve"],
-        thumbnail: "/media/work/smoke.jpg",
-        preview: "/media/work/smoke.mp4",
-        video: "/media/work/smoke.mp4",
-        summary: "A 30-second fragrance spot made of golden smoke, shot entirely without a camera.",
-        brief:
-          "Launch a new evening fragrance across social and pre-roll with a film that feels like couture — on a timeline too short for a traditional shoot.",
+        tools: [],
+        thumbnail: "/media/work/matchday.jpg",
+        preview: "/media/work/matchday-preview.mp4",
+        video: "/media/work/matchday.mp4",
+        summary: "A comedic spot about a whole community glued to the odds, from the bush to the barbershop to the betting shop.",
         concept:
-          "Scent is invisible, so we made it visible: a slow-motion cloud of gold particulate that folds into the silhouette of the bottle.",
-        process: [
-          "Moodboarded 200 frames in Midjourney and locked a lighting bible with the brand team.",
-          "Animated hero shots in Kling, iterating on motion prompts for weight and drift.",
-          "Composited the product plate and finished the grade in Resolve.",
-          "Delivered 16:9, 1:1 and 9:16 cut-downs with localized supers.",
-        ],
-        credits: [
-          { role: "Director & AI Producer", name: "MAK" },
-          { role: "Client", name: "Maison Ombre" },
-        ],
+          "Everyone has a ticket running. The spot cuts between characters across generations and settings, all sharing the same matchday nerves.",
+        credits: [{ role: "Direction & AI Production", name: "MAK" }],
       },
       {
-        slug: "lambda-protocol",
-        title: "Λ Protocol",
-        client: "ORO LABS",
-        category: "creative-direction",
-        year: 2025,
-        tools: ["Midjourney", "Runway", "Cinema 4D"],
-        thumbnail: "/media/work/chevrons.jpg",
-        preview: "/media/work/chevrons.mp4",
-        video: "/media/work/chevrons.mp4",
-        summary: "A brand world and launch film built around a single ascending gesture.",
-        brief:
-          "ORO LABS was rebranding and needed a visual language — not just a logo animation — that could scale from keynote openers to product UI.",
-        concept:
-          "The chevron as ascent. Every frame is built from rising Λ forms: architecture, light leaks, typography.",
-        process: [
-          "Defined the visual system: motion principles, palette, type and texture.",
-          "Generated architectural plates with Midjourney and extended them into motion with Runway.",
-          "Built the hero logo resolve in Cinema 4D.",
-        ],
-        credits: [
-          { role: "Creative Director", name: "MAK" },
-          { role: "Client", name: "ORO LABS" },
-        ],
-      },
-      {
-        slug: "liquid-gold-hours",
-        title: "Liquid Gold Hours",
-        client: "Personal film",
-        category: "animation",
-        year: 2025,
-        tools: ["Runway", "Blender", "After Effects"],
-        thumbnail: "/media/work/liquid.jpg",
-        preview: "/media/work/liquid.mp4",
-        video: "/media/work/liquid.mp4",
-        summary: "A short animated meditation on time melting at golden hour.",
-        brief: "A self-initiated film to push how far AI animation can hold a continuous, painterly mood.",
-        concept: "Time as a liquid. Light pools, drips and re-forms as the sun goes down.",
-        process: [
-          "Simulated base fluids in Blender as motion guides.",
-          "Style-transferred and extended shots with Runway video-to-video.",
-          "Graded and assembled in After Effects.",
-        ],
-        credits: [{ role: "Direction & Animation", name: "MAK" }],
-      },
-      {
-        slug: "nocturne-engine",
-        title: "Nocturne Engine",
-        client: "KAIRO — Live Tour",
-        category: "music-visualizers",
-        year: 2025,
-        tools: ["TouchDesigner", "Notch", "Ableton Live"],
-        thumbnail: "/media/work/spectrum.jpg",
-        preview: "/media/work/spectrum.mp4",
-        video: "/media/work/spectrum.mp4",
-        summary: "Real-time tour visuals that listen to the band and answer back.",
-        brief:
-          "KAIRO wanted show visuals that were never the same twice — reacting to the live mix rather than playing back a timeline.",
-        concept: "A circular instrument of light that the music plays, night after night.",
-        process: [
-          "Built an Ableton → TouchDesigner OSC bridge for stems and cues.",
-          "Designed 12 scenes with operator-friendly controls for the VJ.",
-          "Optimized to run at 60fps across a 12m LED wall.",
-        ],
-        credits: [
-          { role: "Visual Director", name: "MAK" },
-          { role: "Artist", name: "KAIRO" },
-        ],
-      },
-      {
-        slug: "molten",
-        title: "Molten",
-        client: "HALDEN Watches",
+        slug: "pawsfirst",
+        title: "PawsFirst",
+        client: "UGC product ad",
         category: "ads",
         year: 2026,
-        tools: ["Kling", "Runway", "Houdini"],
-        thumbnail: "/media/work/sphere.jpg",
-        preview: "/media/work/sphere.mp4",
-        video: "/media/work/sphere.mp4",
-        summary: "A product film where gold is poured, cooled and becomes a watch case.",
-        brief: "Show the craft behind a limited gold edition in 15 seconds for paid social.",
-        concept: "From molten to measured — the metal finds its form, then keeps time.",
-        process: [
-          "Prototyped the liquid-metal look in Houdini.",
-          "Generated macro shots with Kling and blended them with product renders.",
-          "Cut 6s, 10s and 15s versions optimized for each platform.",
-        ],
-        credits: [
-          { role: "Director & AI Producer", name: "MAK" },
-          { role: "Client", name: "HALDEN" },
-        ],
-      },
-      {
-        slug: "thread-of-light",
-        title: "Thread of Light",
-        client: "Saint Cielo",
-        category: "animation",
-        year: 2024,
-        tools: ["After Effects", "Midjourney", "Stable Diffusion"],
-        thumbnail: "/media/work/lines.jpg",
-        preview: "/media/work/lines.mp4",
-        video: "/media/work/lines.mp4",
-        summary: "An animated title sequence woven from a single golden thread.",
-        brief: "An opening title sequence for a documentary series about textile ateliers.",
-        concept: "One unbroken line that becomes fabric, landscape and finally the series title.",
-        process: [
-          "Storyboarded the line's journey frame by frame.",
-          "Generated textile references with Midjourney and Stable Diffusion.",
-          "Animated procedurally in After Effects for crisp, resolution-independent line work.",
-        ],
-        credits: [
-          { role: "Title Design & Animation", name: "MAK" },
-          { role: "Client", name: "Saint Cielo" },
-        ],
-      },
-      {
-        slug: "dust-and-divinity",
-        title: "Dust & Divinity",
-        client: "Velvet Static Festival",
-        category: "creative-direction",
-        year: 2024,
-        tools: ["Runway", "Midjourney", "TouchDesigner"],
-        thumbnail: "/media/work/dust.jpg",
-        preview: "/media/work/dust.mp4",
-        video: "/media/work/dust.mp4",
-        summary: "Festival identity and stage visuals built from a galaxy of gold dust.",
-        brief: "A festival identity that works on posters, socials and three stages of live visuals.",
-        concept: "Every attendee is a particle; together they make a constellation.",
-        process: [
-          "Designed the identity system and key art.",
-          "Produced 30+ social loops with Runway.",
-          "Delivered a TouchDesigner stage pack for the festival's VJs.",
-        ],
-        credits: [
-          { role: "Creative Director", name: "MAK" },
-          { role: "Client", name: "Velvet Static Festival" },
-        ],
+        tools: [],
+        aspect: "9:16",
+        thumbnail: "/media/work/pawsfirst.jpg",
+        preview: "/media/work/pawsfirst-preview.mp4",
+        video: "/media/work/pawsfirst.mp4",
+        summary: "A vertical, creator-style product ad for PawsFirst dog food, built for TikTok and Reels.",
+        concept:
+          "The warmth and pace of real creator content (a host, her dog and word-by-word captions), produced entirely with AI.",
+        credits: [{ role: "Direction & AI Production", name: "MAK" }],
       },
     ] satisfies Project[] as Project[],
   },
@@ -390,7 +281,7 @@ export const site = {
     portrait: "/media/portrait.jpg",
     portraitAlt: "Portrait of MAK, AI creative director", // TODO: describe your real photo
     bio: [
-      "I'm MAK, a creative director and animator working at the edge where cinema meets generative AI. I started in motion design and music videos, and when the new tools arrived I treated them the way a cinematographer treats a new lens: something to master, not a shortcut.",
+      "I'm Mayowa, a creative director and animator working at the edge where cinema meets generative AI. I started in motion design and music videos, and when the new tools arrived I treated them the way a cinematographer treats a new lens: something to master, not a shortcut.",
       "Today I lead MAK Studio, a small, senior practice making visualizers for artists, campaigns for brands and films that wouldn't have been possible two years ago. Taste first, tools second.",
     ],
     tools: [
@@ -440,13 +331,11 @@ export const site = {
     budgets: ["Under $2k", "$2k – $5k", "$5k – $15k", "$15k – $50k", "$50k+"],
   },
 
-  // TODO: your handles
+  // Add Instagram / LinkedIn etc. in the same shape when you have them.
   socials: [
-    { label: "Instagram", handle: "@yourhandle", href: "https://www.instagram.com/yourhandle" },
-    { label: "X", handle: "@yourhandle", href: "https://x.com/yourhandle" },
-    { label: "YouTube", handle: "@yourhandle", href: "https://www.youtube.com/@yourhandle" },
-    { label: "TikTok", handle: "@yourhandle", href: "https://www.tiktok.com/@yourhandle" },
-    { label: "LinkedIn", handle: "in/yourhandle", href: "https://www.linkedin.com/in/yourhandle" },
+    { label: "X", handle: "@bigZUKO_", href: "https://x.com/bigZUKO_" },
+    { label: "TikTok", handle: "@sirmayoishere", href: "https://www.tiktok.com/@sirmayoishere" },
+    { label: "YouTube", handle: "@makstudiosfr", href: "https://www.youtube.com/@makstudiosfr" },
   ] as Social[],
 };
 
